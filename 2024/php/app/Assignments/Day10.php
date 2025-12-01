@@ -83,11 +83,11 @@ final class Day10 extends \App2024\BaseAssignment
             $newY = $fromY + $move[1];
 
             if (
-                $newX < 0 ||
-                $newY < 0 ||
-                $newX >= $this->parsedDataArray['mapXSize'] ||
-                $newY >= $this->parsedDataArray['mapYSize'] ||
-                $this->parsedDataArray['map'][$newY][$newX] - $this->parsedDataArray['map'][$fromY][$fromX] !== 1
+                $newX < 0
+                || $newY < 0
+                || $newX >= $this->parsedDataArray['mapXSize']
+                || $newY >= $this->parsedDataArray['mapYSize']
+                || $this->parsedDataArray['map'][$newY][$newX] - $this->parsedDataArray['map'][$fromY][$fromX] !== 1
             ) {
                 continue;
             }

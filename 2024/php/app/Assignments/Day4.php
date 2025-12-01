@@ -63,14 +63,14 @@ final class Day4 extends \App2024\BaseAssignment
 
     private function searchWordInDirection(array $matrix, string $word, int $startRow, int $startCol, array $direction): bool
     {
-        return $this->searchWord($matrix, $word, $startRow, $startCol, $direction) ||
-               $this->searchWord($matrix, strrev($word), $startRow, $startCol, $direction);
+        return $this->searchWord($matrix, $word, $startRow, $startCol, $direction)
+               || $this->searchWord($matrix, strrev($word), $startRow, $startCol, $direction);
     }
 
     private function checkCrossPattern(array $matrix, string $word, int $row, int $col): bool
     {
-        return ($this->searchWordInDirection($matrix, $word, $row, $col, [1, 1]) &&
-                $this->searchWordInDirection($matrix, $word, $row, $col + 2, [1, -1]));
+        return ($this->searchWordInDirection($matrix, $word, $row, $col, [1, 1])
+                && $this->searchWordInDirection($matrix, $word, $row, $col + 2, [1, -1]));
     }
 
     private function searchWord(array $matrix, string $word, int $startRow, int $startCol, array $direction): bool

@@ -23,9 +23,9 @@ final class Day7 extends BaseAssignment
                     $path = match ($tok[2]) {
                         '/' => 'root/',
                         '..' => (
-                            strrpos($path, '/', -1) === false ?
-                            'root/' :
-                            substr($path, 0, strrpos($path, '/', -1) - 1)
+                            strrpos($path, '/', -1) === false
+                            ? 'root/'
+                            : substr($path, 0, strrpos($path, '/', -1) - 1)
                         ),
                         default => $path . $tok[2] . '/',
                     };
