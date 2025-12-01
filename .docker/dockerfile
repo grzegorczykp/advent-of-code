@@ -1,7 +1,15 @@
-FROM php:8.4-cli-alpine
+FROM php:8.4.15-cli-alpine3.22
 
-ARG COMPOSER_VERSION="2.8.3"
-ARG COMPOSER_SUM="8323b4105c6e166d47c9db93209370083f9e421743636e108c37d8c1126386ef"
+# Composer - https://getcomposer.org/download/
+ENV COMPOSER_VERSION="2.8.12"
+ENV COMPOSER_SHA256="f446ea719708bb85fcbf4ef18def5d0515f1f9b4d703f6d820c9c1656e10a2f2"
+
+# Install composer
+RUN set -eux \
+    && curl -LO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" \
+    && echo "${COMPOSER_SHA256} composer.phar" | sha256sum -c - \
+    && chmod +x composer.phar \
+    && mv composer.phar /usr/local/bin/composer
 
 RUN set -eux \
 \
@@ -22,22 +30,12 @@ RUN set -eux \
     # Xdebug
         && pecl install -o xdebug \
         && docker-php-ext-enable xdebug \
-\
-    # Composer
-        && curl -LO "https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar" \
-        && echo "${COMPOSER_SUM}  composer.phar" | sha256sum -c - \
-        && chmod +x composer.phar \
-        && mv composer.phar /usr/local/bin/composer \
-\
-    # Shrink binaries
-        && (find /usr/local/bin -type f -print0 | xargs -n1 -0 strip --strip-all -p 2>/dev/null || true) \
-        && (find /usr/local/lib -type f -print0 | xargs -n1 -0 strip --strip-all -p 2>/dev/null || true) \
-        && (find /usr/local/sbin -type f -print0 | xargs -n1 -0 strip --strip-all -p 2>/dev/null || true) \
+    # Strip symbols
+        && (find /usr/local/lib/php/extensions -type f -name "xdebug.so" -print0 | xargs -n1 -0 strip --strip-all -p 2>/dev/null || true) \
 \
     # Cleanup
     && apk del .build-deps
 
 ENV PHP_IDE_CONFIG serverName=AoC-docker
-ENV PHP_CS_FIXER_IGNORE_ENV 1
 
 WORKDIR /app
