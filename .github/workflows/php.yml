@@ -15,37 +15,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.4'
+      - uses: actions/checkout@v3
 
-    - name: Validate composer.json and composer.lock
-      working-directory: ./php-app
-      run: composer validate --strict
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: gmp
 
-    - name: Get Composer Cache Directory
-      id: composer-cache
-      working-directory: ./php-app
-      run: |
-        echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Validate composer.json and composer.lock
+        working-directory: ./php-app
+        run: composer validate --strict
 
-    - name: Cache Composer packages
-      uses: actions/cache@v3
-      with:
-        path: |
-          ./php-app/vendor
-          ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        working-directory: ./php-app
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-    - name: Install dependencies
-      working-directory: ./php-app
-      run: composer install --prefer-dist --no-progress
+      - name: Cache Composer packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./php-app/vendor
+            ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-    - name: Run test suite
-      working-directory: ./php-app
-      run: composer run-script test
+      - name: Install dependencies
+        working-directory: ./php-app
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run test suite
+        working-directory: ./php-app
+        run: composer run-script test
