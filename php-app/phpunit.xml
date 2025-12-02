@@ -11,15 +11,6 @@
          failOnRisky="true"
          failOnWarning="true">
 
-    <source>
-        <include>
-            <directory>../2021/php</directory>
-            <directory>../2022/php</directory>
-            <directory>../2023/php</directory>
-            <directory>../2024/php</directory>
-        </include>
-    </source>
-
     <testsuites>
         <testsuite name="default">
             <directory suffix=".php">tests</directory>
