@@ -16,35 +16,68 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-$config = new PhpCsFixer\Config();
-
-return $config->setRules([
-    '@PSR12' => true,
-    '@PSR12:risky' => true,
-    '@PER-CS' => true,
-    '@PER-CS:risky' => true,
-    'strict_param' => true,
-    'declare_strict_types' => true,
-    'ordered_imports' => ['sort_algorithm' => 'alpha'],
-    'no_unused_imports' => true,
-    'trailing_comma_in_multiline' => [
-        'elements' => ['array_destructuring', 'arrays', 'match'],
-    ],
-    'phpdoc_scalar' => true,
-    'unary_operator_spaces' => true,
-    'binary_operator_spaces' => true,
-    'blank_line_before_statement' => [
-        'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
-    ],
-    'phpdoc_single_line_var_spacing' => true,
-    'phpdoc_var_without_name' => true,
-    'class_attributes_separation' => true,
-    'method_argument_space' => [
-        'on_multiline' => 'ensure_fully_multiline',
-        'keep_multiple_spaces_after_comma' => true,
-    ],
-    'single_trait_insert_per_statement' => true,
-])
+return (new PhpCsFixer\Config())
+    ->setRules([
+        '@PSR12' => true,
+        '@PSR12:risky' => true,
+        'array_push' => true,
+        'class_attributes_separation' => [
+            'elements' => [
+                'const' => 'one',
+                'method' => 'one',
+                'property' => 'one',
+                'trait_import' => 'none',
+                'case' => 'none'
+            ],
+        ],
+        'concat_space' => ['spacing' => 'one'],
+        'declare_strict_types' => true,
+        'lowercase_keywords' => true,
+        'lowercase_static_reference' => true,
+        'function_declaration' => [
+            'closure_fn_spacing' => 'none'
+        ],
+        'global_namespace_import' => [
+            'import_classes' => true,
+            'import_constants' => true,
+            'import_functions' => true
+        ],
+        'modernize_types_casting' => true,
+        'new_with_parentheses' => false,
+        'no_superfluous_elseif' => true,
+        'no_unused_imports' => true,
+        'no_useless_else' => true,
+        'no_multiple_statements_per_line' => true,
+        'ordered_class_elements' => [
+            'order' => [
+                'use_trait',
+                'case',
+                'constant',
+                'constant_public',
+                'constant_protected',
+                'constant_private',
+                'property_public',
+                'property_protected',
+                'property_private',
+                'construct',
+                'destruct',
+                'magic',
+                'phpunit'
+            ],
+            'sort_algorithm' => 'none'
+        ],
+        'ordered_interfaces' => true,
+        'ordered_imports' => [
+            'imports_order' => ['class', 'function', 'const'],
+            'sort_algorithm' => 'alpha'
+        ],
+        'ordered_traits' => true,
+        'self_accessor' => true,
+        'self_static_accessor' => true,
+        'strict_comparison' => true,
+        'visibility_required' => true,
+    ])
     ->setFinder($finder)
     ->setRiskyAllowed(true)
-    ->setUsingCache(true);
+    ->setUsingCache(true)
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect());

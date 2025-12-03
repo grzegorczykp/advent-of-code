@@ -8,14 +8,14 @@ use Illuminate\Support\Collection;
 
 final class Day12 extends \App2024\BaseAssignment
 {
-    protected int $day = 12;
-
     private const array MOVE_DIRECTIONS = [
         'Up' => [0, -1],
         'Down' => [0, 1],
         'Left' => [-1, 0],
         'Right' => [1, 0],
     ];
+
+    protected int $day = 12;
 
     private array $map;
 

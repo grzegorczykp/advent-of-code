@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App2024\Assignments;
 
+use Exception;
 use Illuminate\Support\Collection;
+use RuntimeException;
 
 final class Day6 extends \App2024\BaseAssignment
 {
@@ -62,7 +64,7 @@ final class Day6 extends \App2024\BaseAssignment
 
                 try {
                     $this->exploreMap($changedMap);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     $loopCount++;
                 }
             }
@@ -99,7 +101,7 @@ final class Day6 extends \App2024\BaseAssignment
                 };
 
                 if ($visitsDirection[$position[1]][$position[0]] & $positionKey) {
-                    throw new \RuntimeException('Infinite loop');
+                    throw new RuntimeException('Infinite loop');
                 }
                 $visitsDirection[$position[1]][$position[0]] |= $positionKey;
             } else {

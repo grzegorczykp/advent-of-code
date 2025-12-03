@@ -9,14 +9,14 @@ use Illuminate\Support\Str;
 
 final class Day10 extends \App2024\BaseAssignment
 {
-    protected int $day = 10;
-
     private const array MOVE_DIRECTIONS = [
         'Up' => [0, -1],
         'Down' => [0, 1],
         'Left' => [-1, 0],
         'Right' => [1, 0],
     ];
+
+    protected int $day = 10;
 
     public function parseInput(string $input): Collection
     {

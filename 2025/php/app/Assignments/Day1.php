@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App2025\Assignments;
 
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 
 final class Day1 extends \App2025\BaseAssignment
 {
@@ -25,7 +26,7 @@ final class Day1 extends \App2025\BaseAssignment
             match ($direction) {
                 'R' => $rotation = ($rotation + $angle) % 100,
                 'L' => $rotation = ($rotation - $angle % 100 + 100) % 100,
-                default => throw new \InvalidArgumentException('Invalid direction'),
+                default => throw new InvalidArgumentException('Invalid direction'),
             };
             if ($rotation === 0) {
                 $zeroCounter++;
@@ -54,7 +55,7 @@ final class Day1 extends \App2025\BaseAssignment
 
                     break;
                 default:
-                    throw new \InvalidArgumentException('Invalid direction');
+                    throw new InvalidArgumentException('Invalid direction');
             }
         }
 

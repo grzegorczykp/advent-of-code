@@ -8,15 +8,15 @@ use Illuminate\Support\Collection;
 
 abstract class BaseAssignment
 {
+    protected string $inputData;
+
+    protected Collection $parsedData;
+
     private string $basePath = __DIR__ . '/../../data/';
 
     private int $day;
 
     private bool $isTest;
-
-    protected string $inputData;
-
-    protected Collection $parsedData;
 
     public function __construct(bool $isTest = false, int $day = 0)
     {

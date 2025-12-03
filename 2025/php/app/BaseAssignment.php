@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App2025;
 
+use Closure;
 use Illuminate\Support\Collection;
 
 abstract class BaseAssignment
 {
-    private readonly string $basePath;
-
     public private(set) array $runStats;
 
     protected int $day;
@@ -19,6 +18,8 @@ abstract class BaseAssignment
     protected readonly ?Collection $parsedData;
 
     protected readonly ?array $parsedDataArray;
+
+    private readonly string $basePath;
 
     public function __construct(private readonly bool $isTest = false)
     {
@@ -48,7 +49,7 @@ abstract class BaseAssignment
         return round($bytes / (1024 ** $i), 2) . $units[$i];
     }
 
-    private function benchamrk(\Closure $closure, string $label): mixed
+    private function benchamrk(Closure $closure, string $label): mixed
     {
         memory_reset_peak_usage();
         $startTime = hrtime(true);
