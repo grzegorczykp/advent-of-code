@@ -17,7 +17,7 @@ final class Day5 extends \App2025\BaseAssignment
         $freshRanges = $this->parseRanges($freshRanges);
 
         $ingredients = collect(explode(PHP_EOL, $ingredients))
-            ->map('intval')
+            ->map(fn(string $ingredient): int => (int) $ingredient)
             ->sort();
 
         return collect(compact('freshRanges', 'ingredients'));
