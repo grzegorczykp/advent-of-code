@@ -27,7 +27,7 @@ https://adventofcode.com/
         <td> * * </td>
         <td> * * </td>
         <td> * * </td>
-        <td>  </td>
+        <td> * * </td>
         <td>  </td>
         <td>  </td>
         <td>  </td>
